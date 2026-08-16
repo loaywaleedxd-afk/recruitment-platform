@@ -1,10 +1,9 @@
 package com.example.user_auth.entity;
 
+import com.example.user_auth.enums.Role;
 import jakarta.persistence.*;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -36,7 +35,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Role role ;
 
 
     protected User() {
@@ -54,7 +53,6 @@ public class User {
         if (email != null) email = email.trim().toLowerCase();
     }
 
-    public void addRole(Role role) { roles.add(role); }
 
     public Long getId() { return id; }
     public String getFullName() { return fullName; }
@@ -66,8 +64,6 @@ public class User {
     public boolean isActive() { return active; }
     public void setActive(boolean active) { this.active = active; }
     public Instant getCreatedAt() { return createdAt; }
-    public Set<Role> getRoles() { return roles; }
-    public void setRoles(Set<Role> roles) { this.roles = roles; }
 
     @Override
     public boolean equals(Object o) {
