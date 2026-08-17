@@ -2,6 +2,7 @@ package com.example.candidate.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.util.KotlinBeanInfoFactory;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -16,10 +17,8 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Candidate {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "full_name", nullable = false, length = 150)
@@ -32,7 +31,7 @@ public class Candidate {
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 30)
+    @Column(name = "status", nullable = false)
     private CandidateStatus status = CandidateStatus.NEW;
     //gbna alcandidate da mnyn
     @Column(name = "source", length = 60)
@@ -42,20 +41,14 @@ public class Candidate {
     private Long createdBy;
     //alwa2t aly atcaryt fyh
     @Column(name = "created_at", nullable = false, updatable = false)
-    @Setter(AccessLevel.NONE)
     private Instant createdAt;
     // emta a5er mara 7asal update ll record
     @Column(name = "updated_at", nullable = false)
-    @Setter(AccessLevel.NONE)
     private Instant updatedAt;
-
     @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @Setter(AccessLevel.NONE)
     private List<CandidateCv> cvs = new ArrayList<>();
     //ma3mola hashset 3shan alhaga tb2a unique w easier to search
-
     @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @Setter(AccessLevel.NONE)
     private Set<CandidateSkill> skills = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -64,7 +57,6 @@ public class Candidate {
             joinColumns = @JoinColumn(name = "candidate_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    @Setter(AccessLevel.NONE)
     private Set<Tag> tags = new HashSet<>();
 
     public Candidate(String fullName, String email) {
@@ -104,17 +96,4 @@ public class Candidate {
         tags.remove(tag);
     }
 
-    @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-    public class candidate {
-        @EqualsAndHashCode.Include
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Setter(AccessLevel.NONE)
-        private Long id;
-
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
 }

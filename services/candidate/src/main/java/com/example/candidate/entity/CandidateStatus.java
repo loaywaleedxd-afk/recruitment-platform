@@ -6,5 +6,5 @@ public enum CandidateStatus {
     INTERVIEW,
     OFFER,
     HIRED,
-    REJECTED
+    REJECTED,
 }

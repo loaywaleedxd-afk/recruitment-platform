@@ -11,12 +11,10 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true) // dy tol ma hya trues bt3ml  equals() w hashcode()
 public class CandidateCv {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -42,7 +40,6 @@ public class CandidateCv {
     private boolean parsed = false;
 
     @Column(name = "uploaded_at", nullable = false, updatable = false)
-    @Setter(AccessLevel.NONE)
     private Instant uploadedAt;
 
     public CandidateCv(String filePath, String originalFilename, String fileType, Long fileSizeBytes) {
