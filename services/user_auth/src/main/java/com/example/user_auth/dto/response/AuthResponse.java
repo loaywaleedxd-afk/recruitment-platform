@@ -1,7 +1,10 @@
 package com.example.user_auth.dto.response;
 
-/** Returned by register/login/refresh */
-public class AuthResponse {
+import lombok.Builder;
 
-    // TODO: momken n7ot accessToken, refreshToken, tokenType, expiresInMs
-}
+@Builder
+public record AuthResponse(
+        String accessToken, //3shan a authenticate en aluser da lyh access wala la
+        String refreshToken, //ka2nha accesstoken tawylt almadaa
+        long expiresInMs //m7tagha 3shan a3rf alaccesstoken ht expire emta
+) { }

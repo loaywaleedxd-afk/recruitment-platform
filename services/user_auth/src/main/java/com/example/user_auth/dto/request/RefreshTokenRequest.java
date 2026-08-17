@@ -1,7 +1,8 @@
 package com.example.user_auth.dto.request;
 
-/** POST /api/auth/refresh, POST /api/auth/logout */
-public class RefreshTokenRequest {
+import jakarta.validation.constraints.NotBlank;
 
-    // TODO: momken n7ot refreshToken
-}
+public record RefreshTokenRequest(
+        @NotBlank(message = "Refresh token is required")
+        String refreshToken
+) {}
