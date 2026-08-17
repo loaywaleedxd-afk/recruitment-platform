@@ -1,10 +1,7 @@
 package com.example.candidate.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -31,23 +28,23 @@ public class Candidate {
     @Column(name = "email", nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(name = "phone", length = 30)
+    @Column(name = "phone", length = 13)
     private String phone;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 30)
     private CandidateStatus status = CandidateStatus.NEW;
-
+    //gbna alcandidate da mnyn
     @Column(name = "source", length = 60)
     private String source;
-
+    // myn aladmin aly caryt alaccount
     @Column(name = "created_by")
     private Long createdBy;
-
+    //alwa2t aly atcaryt fyh
     @Column(name = "created_at", nullable = false, updatable = false)
     @Setter(AccessLevel.NONE)
     private Instant createdAt;
-
+    // emta a5er mara 7asal update ll record
     @Column(name = "updated_at", nullable = false)
     @Setter(AccessLevel.NONE)
     private Instant updatedAt;
@@ -55,6 +52,7 @@ public class Candidate {
     @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<CandidateCv> cvs = new ArrayList<>();
+    //ma3mola hashset 3shan alhaga tb2a unique w easier to search
 
     @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
@@ -106,13 +104,15 @@ public class Candidate {
         tags.remove(tag);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Candidate other)) return false;
-        return id != null && id.equals(other.id);
-    }
+    @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+    public class candidate {
+        @EqualsAndHashCode.Include
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Setter(AccessLevel.NONE)
+        private Long id;
 
+    }
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
