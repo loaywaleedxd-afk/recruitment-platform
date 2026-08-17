@@ -1,15 +1,22 @@
 package com.example.candidate.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
 @Table(name = "candidate_cvs")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) // dy tol ma hya trues bt3ml  equals() w hashcode()
 public class CandidateCv {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -28,18 +35,15 @@ public class CandidateCv {
     @Column(name = "file_size_bytes")
     private Long fileSizeBytes;
 
-    @Lob
-    @Column(name = "parsed_data")
+    @Column(name = "parsed_data", length = 1000)
     private String parsedData;
 
     @Column(name = "is_parsed", nullable = false)
     private boolean parsed = false;
 
     @Column(name = "uploaded_at", nullable = false, updatable = false)
+    @Setter(AccessLevel.NONE)
     private Instant uploadedAt;
-
-    protected CandidateCv() {
-    }
 
     public CandidateCv(String filePath, String originalFilename, String fileType, Long fileSizeBytes) {
         this.filePath = filePath;
@@ -53,30 +57,5 @@ public class CandidateCv {
         if (uploadedAt == null) uploadedAt = Instant.now();
     }
 
-    public Long getId() { return id; }
-    public Candidate getCandidate() { return candidate; }
-    public void setCandidate(Candidate candidate) { this.candidate = candidate; }
-    public String getFilePath() { return filePath; }
-    public void setFilePath(String filePath) { this.filePath = filePath; }
-    public String getOriginalFilename() { return originalFilename; }
-    public void setOriginalFilename(String originalFilename) { this.originalFilename = originalFilename; }
-    public String getFileType() { return fileType; }
-    public void setFileType(String fileType) { this.fileType = fileType; }
-    public Long getFileSizeBytes() { return fileSizeBytes; }
-    public void setFileSizeBytes(Long fileSizeBytes) { this.fileSizeBytes = fileSizeBytes; }
-    public String getParsedData() { return parsedData; }
-    public void setParsedData(String parsedData) { this.parsedData = parsedData; }
-    public boolean isParsed() { return parsed; }
-    public void setParsed(boolean parsed) { this.parsed = parsed; }
-    public Instant getUploadedAt() { return uploadedAt; }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CandidateCv other)) return false;
-        return id != null && id.equals(other.id);
     }
-
-    @Override
-    public int hashCode() { return Objects.hashCode(id); }
-}
