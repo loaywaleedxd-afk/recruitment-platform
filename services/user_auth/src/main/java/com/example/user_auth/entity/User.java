@@ -13,8 +13,7 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -23,9 +22,8 @@ public class User {
 
     @Column(name = "full_name", nullable = false, length = 100)
     private String fullName;
-
-    @EqualsAndHashCode.Include
-    @Column(name = "email", nullable = false, unique = true, length = 255)
+    //Validate
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password_hash", nullable = false, length = 100)
