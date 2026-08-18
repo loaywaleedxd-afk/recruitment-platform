@@ -1,7 +1,6 @@
 package com.example.user_auth.security;
 
 import com.example.user_auth.entity.User;
-import com.example.user_auth.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -31,7 +30,9 @@ public class JwtService {
         this.ttl = Duration.ofMinutes(ttlMinutes);
         this.issuer = issuer;
     }
-
+    public long getAccessTokenTtlMillis() {
+        return ttl.toMillis();
+    }
     public String generateToken(User user) {
         Instant now = Instant.now();
 

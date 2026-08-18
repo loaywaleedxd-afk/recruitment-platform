@@ -1,5 +1,6 @@
 package com.example.user_auth.repository;
 import com.example.user_auth.entity.User;
+import com.example.user_auth.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
@@ -11,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /*almain logic bta3ha eno lama hd ygy y3ml signup w mailo mosta3mal abl kda
     my2darsh y sign up byh tany*/
     boolean existsByEmail(String email);
+    /* bt3d kam ADMIN mawgood - 3shan mynf3sh ymsa7 a5er admin */
+    long countByRolesContaining(Role role);
 }

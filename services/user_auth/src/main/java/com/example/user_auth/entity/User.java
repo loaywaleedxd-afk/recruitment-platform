@@ -26,7 +26,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password_hash", nullable = false, length = 50)
+    @Column(name = "password_hash", nullable = false, length = 60)
     private String passwordHash;
 
     @Column(name = "is_active", nullable = false)
@@ -50,6 +50,7 @@ public class User {
         this.setEmail(email);
         this.passwordHash = passwordHash;
     }
+
 
     public void setEmail(String email) {
         this.email = (email != null) ? email.trim().toLowerCase() : null;
