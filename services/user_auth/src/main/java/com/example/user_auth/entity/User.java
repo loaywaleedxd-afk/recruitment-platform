@@ -37,13 +37,11 @@ public class User {
     private Instant createdAt;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id")
-    )
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
+
 
     public User(String fullName, String email, String passwordHash) {
         this.fullName = fullName;
