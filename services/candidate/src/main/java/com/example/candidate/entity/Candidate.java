@@ -1,0 +1,99 @@
+package com.example.candidate.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.util.KotlinBeanInfoFactory;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "candidates")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Candidate {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "full_name", nullable = false, length = 150)
+    private String fullName;
+
+    @Column(name = "email", nullable = false, unique = true, length = 255)
+    private String email;
+
+    @Column(name = "phone", length = 13)
+    private String phone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private CandidateStatus status = CandidateStatus.NEW;
+    //gbna alcandidate da mnyn
+    @Column(name = "source", length = 60)
+    private String source;
+    // myn aladmin aly caryt alaccount
+    @Column(name = "created_by")
+    private Long createdBy;
+    //alwa2t aly atcaryt fyh
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
+    // emta a5er mara 7asal update ll record
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CandidateCv> cvs = new ArrayList<>();
+    //ma3mola hashset 3shan alhaga tb2a unique w easier to search
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<CandidateSkill> skills = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "candidate_tags",
+            joinColumns = @JoinColumn(name = "candidate_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
+
+    public Candidate(String fullName, String email) {
+        this.fullName = fullName;
+        this.email = email;
+    }
+
+    @PrePersist
+    void onCreate() {
+        Instant now = Instant.now();
+        if (createdAt == null) createdAt = now;
+        updatedAt = now;
+        if (email != null) email = email.trim().toLowerCase();
+    }
+
+    @PreUpdate
+    void onUpdate() {
+        updatedAt = Instant.now();
+        if (email != null) email = email.trim().toLowerCase();
+    }
+
+    public void addCv(CandidateCv cv) {
+        cvs.add(cv);
+        cv.setCandidate(this);
+    }
+
+    public void addSkill(CandidateSkill skill) {
+        skills.add(skill);
+        skill.setCandidate(this);
+    }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+    }
+
+}
