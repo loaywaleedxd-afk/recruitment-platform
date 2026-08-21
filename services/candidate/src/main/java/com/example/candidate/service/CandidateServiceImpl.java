@@ -42,7 +42,6 @@ public class CandidateServiceImpl implements CandidateService {
         this.candidateSkillRepository = candidateSkillRepository;
         this.tagRepository = tagRepository;
     }
-
     @Override
     public CandidateResponse create(CreateCandidateRequest request) {
         String email = normaliseEmail(request.email());
@@ -93,6 +92,7 @@ public class CandidateServiceImpl implements CandidateService {
 
         if (request.skills() != null) {
             candidate.getSkills().clear();
+            candidateRepository.flush();
             applySkills(candidate, request.skills());
         }
 
