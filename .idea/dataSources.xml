@@ -27,7 +27,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="auth_db@ep-snowy-waterfall-axsifi9v-pooler.c-4.us-east-2.aws.neon.tech" uuid="eeef185e-5bde-4097-b6b7-86989132ec4c">
+    <data-source source="LOCAL" name="auth_db" uuid="eeef185e-5bde-4097-b6b7-86989132ec4c">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <configured-by-url>true</configured-by-url>

@@ -53,19 +53,19 @@ public class CandidateController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public CandidateResponse create(@Valid @RequestBody CreateCandidateRequest request) {
         return candidateService.create(request);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public CandidateResponse getById(@PathVariable Long id) {
         return candidateService.getById(id);
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public Page<CandidateSummaryResponse> search(
             @Valid @ModelAttribute CandidateSearchRequest filters,
             @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC)
@@ -74,20 +74,20 @@ public class CandidateController {
     }
 
     @GetMapping("/skills")
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public List<String> listAllSkills() {
         return candidateService.listAllSkills();
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public CandidateResponse update(@PathVariable Long id,
                                     @Valid @RequestBody UpdateCandidateRequest request) {
         return candidateService.update(id, request);
     }
 
     @PatchMapping("/{id}/status")
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public CandidateResponse changeStatus(@PathVariable Long id,
                                           @Valid @RequestBody UpdateCandidateStatusRequest request) {
         return candidateService.changeStatus(id, request);
@@ -95,27 +95,27 @@ public class CandidateController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public void delete(@PathVariable Long id) {
         candidateService.delete(id);
     }
 
     @PostMapping(path = "/{id}/cvs", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public CandidateCvResponse uploadCv(@PathVariable Long id,
                                         @RequestPart("file") MultipartFile file) {
         return candidateCvService.upload(id, file);
     }
 
     @GetMapping("/{id}/cvs")
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public List<CandidateCvResponse> listCvs(@PathVariable Long id) {
         return candidateCvService.listByCandidate(id);
     }
 
     @GetMapping("/{id}/cvs/{cvId}/download")
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public ResponseEntity<Resource> downloadCv(@PathVariable Long id,
                                                @PathVariable Long cvId) {
         CvDownload download = candidateCvService.download(id, cvId);
@@ -132,7 +132,7 @@ public class CandidateController {
 
     @DeleteMapping("/{id}/cvs/{cvId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('HR')")
+    //@PreAuthorize("hasRole('HR')")
     public void deleteCv(@PathVariable Long id, @PathVariable Long cvId) {
         candidateCvService.delete(id, cvId);
     }

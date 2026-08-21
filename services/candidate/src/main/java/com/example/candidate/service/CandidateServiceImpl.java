@@ -148,7 +148,7 @@ public class CandidateServiceImpl implements CandidateService {
                 .map(String::trim)
                 .distinct()
                 .forEach(name -> {
-                    Tag tag = tagRepository.findByNameCaseSenestives(name)
+                    Tag tag = tagRepository.findByNameIgnoreCase(name)
                             .orElseGet(() -> tagRepository.save(new Tag(name)));
                     candidate.addTag(tag);
                 });

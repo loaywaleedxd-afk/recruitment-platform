@@ -118,7 +118,7 @@ public class CandidateCvServiceImpl implements CandidateCvService {
             throw candidateNotFound();
         }
 
-        return candidateCvRepository.findByCandidateIdcvNewest(candidateId)
+        return candidateCvRepository.findByCandidateIdOrderByUploadedAtDesc(candidateId)
                 .stream()
                 .map(this::toResponse)
                 .toList();
