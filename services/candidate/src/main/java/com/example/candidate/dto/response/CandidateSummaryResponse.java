@@ -4,7 +4,6 @@ import com.example.candidate.entity.CandidateStatus;
 
 import java.time.Instant;
 
-
 public record CandidateSummaryResponse(
         Long id,
         String fullName,

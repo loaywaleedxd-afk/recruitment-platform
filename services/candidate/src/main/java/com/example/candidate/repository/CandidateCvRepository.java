@@ -7,9 +7,8 @@ import java.util.List;
 
 public interface CandidateCvRepository extends JpaRepository<CandidateCv, Long> {
 
-    //bttla3 agdad candidates b alcv bta3hom
-    List<CandidateCv> findByCandidateIdOrderByUploadedAtDesc(Long candidateId);    //btshof al cv at3amlo analyzation wala lsa
+    List<CandidateCv> findByCandidateIdOrderByUploadedAtDesc(Long candidateId);
     List<CandidateCv> findByParsedFalse();
-    //almain use bta3ha 3shan a3d kam cv ll candidate
+
     long countByCandidateId(Long candidateId);
 }

@@ -22,7 +22,7 @@ public class User {
 
     @Column(name = "full_name", nullable = false, length = 100)
     private String fullName;
-    //Validate
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -42,13 +42,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-
     public User(String fullName, String email, String passwordHash) {
         this.fullName = fullName;
         this.setEmail(email);
         this.passwordHash = passwordHash;
     }
-
 
     public void setEmail(String email) {
         this.email = (email != null) ? email.trim().toLowerCase() : null;

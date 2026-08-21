@@ -128,7 +128,6 @@ public class CandidateServiceImpl implements CandidateService {
         candidateRepository.deleteById(id);
     }
 
-
     private void applySkills(Candidate candidate, Set<String> skills) {
         if (skills == null) return;
 
@@ -138,7 +137,6 @@ public class CandidateServiceImpl implements CandidateService {
                 .distinct()
                 .forEach(name -> candidate.addSkill(new CandidateSkill(name)));
     }
-
 
     private void applyTags(Candidate candidate, Set<String> tags) {
         if (tags == null) return;
@@ -203,7 +201,6 @@ public class CandidateServiceImpl implements CandidateService {
                 cv.getUploadedAt()
         );
     }
-
 
     private Long currentUserId() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

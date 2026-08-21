@@ -33,21 +33,21 @@ public class Candidate {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private CandidateStatus status = CandidateStatus.NEW;
-    //gbna alcandidate da mnyn
+
     @Column(name = "source", length = 60)
     private String source;
-    // myn aladmin aly caryt alaccount
+
     @Column(name = "created_by")
     private Long createdBy;
-    //alwa2t aly atcaryt fyh
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
-    // emta a5er mara 7asal update ll record
+
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
     @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CandidateCv> cvs = new ArrayList<>();
-    //ma3mola hashset 3shan alhaga tb2a unique w easier to search
+
     @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<CandidateSkill> skills = new HashSet<>();
 

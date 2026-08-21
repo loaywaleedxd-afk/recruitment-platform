@@ -4,7 +4,6 @@ import com.example.candidate.entity.CandidateStatus;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-
 public record UpdateCandidateStatusRequest(
 
         @NotNull(message = "Status is required")

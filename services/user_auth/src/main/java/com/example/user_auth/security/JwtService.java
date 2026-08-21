@@ -23,9 +23,9 @@ public class JwtService {
     private final Duration ttl;
     private final String issuer;
 
-    public JwtService(@Value("${app.jwt.secret}") String secret, //da alsecret key
-                      @Value("${app.jwt.access-token-ttl-minutes:15}") long ttlMinutes,//t expire f ad eh
-                      @Value("${app.jwt.issuer:recruitment-auth}") String issuer) {// altoken dy bta3t myn aw tal3a mn anhy service
+    public JwtService(@Value("${app.jwt.secret}") String secret,
+                      @Value("${app.jwt.access-token-ttl-minutes:15}") long ttlMinutes,
+                      @Value("${app.jwt.issuer:recruitment-auth}") String issuer) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.ttl = Duration.ofMinutes(ttlMinutes);
         this.issuer = issuer;
@@ -64,6 +64,5 @@ public class JwtService {
             return Optional.empty();
         }
     }
-
 
 }

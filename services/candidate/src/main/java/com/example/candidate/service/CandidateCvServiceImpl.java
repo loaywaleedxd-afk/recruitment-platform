@@ -104,8 +104,7 @@ public class CandidateCvServiceImpl implements CandidateCvService {
         try {
             return toResponse(candidateCvRepository.save(cv));
         } catch (RuntimeException ex) {
-            // The transaction is rolling back — take the file with it, or
-            // storage fills up with orphans no row points at.
+
             deleteFileQuietly(storedPath);
             throw ex;
         }

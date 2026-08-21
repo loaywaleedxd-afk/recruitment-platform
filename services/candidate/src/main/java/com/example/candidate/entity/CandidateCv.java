@@ -54,5 +54,4 @@ public class CandidateCv {
         if (uploadedAt == null) uploadedAt = Instant.now();
     }
 
-
     }
